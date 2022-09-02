@@ -58,6 +58,7 @@ let zero = document.querySelector('#zero');
 
 zero.addEventListener('click', () => {
     if(op2String.length == 0 && currentOperator == '÷'){
+        alert("snarks");
         return;
     }
     if(equationString.length != 0){
@@ -180,32 +181,43 @@ decimal.addEventListener('click', () => {
 
 
 
+let Del = document.querySelector('#delete');
+
+Del.addEventListener('click',() => {
+    if(equationString.length >= 1){
+    let hool = equationString.split('');
+    if(hool[hool.length - 1] == '+' ||
+            hool[hool.length - 1] == '−' ||
+            hool[hool.length - 1] == '×' ||
+            hool[hool.length - 1] == '÷'
+    )
+    {
+        operatorOn = false;
+    }
+    else if (operatorOn == true){
+        if(hool[hool.length - 1] == '.'){
+            hasPeriod =false;
+        }
+        op2String = op2String.slice(0,-1);
+    }
+    else if (operatorOn == false){
+        if(hool[hool.length - 1] == '.'){
+            hasPeriod =false;
+        }
+        op1String = op1String.slice(0,-1);
+    }
+    
+        equationString = equationString.slice(0,-1);
+        document.getElementById('topoutput').innerText = equationString;
+    }
+});
+
+
+
 
 /*
 
 
-
-
-document.getElementById('topoutput').innerText = ` `;
-document.getElementById('bottomoutput').innerText = " ";
-
-
-let decimal = document.querySelector('#Decimal');
-
-decimal.addEventListener('click', () => {
-    if(checkPeriod(topOutput) == true){
-        topOutput += '.';
-        document.getElementById('topoutput').innerText = topOutput;}
-});
-
-let clear = document.querySelector('#clear');
-
-clear.addEventListener('click',()=>{
-    topOutput = '';
-    result = '';
-    document.getElementById('topoutput').innerText = (topOutput);
-    document.getElementById('bottomoutput').innerText = result;
-});
 
 let Del = document.querySelector('#delete');
 
@@ -215,8 +227,6 @@ Del.addEventListener('click',() => {
         document.getElementById('topoutput').innerText = (topOutput);
     }
 });
-
-
 
 
 
