@@ -35,9 +35,24 @@ function checkPeriod(string){
     return(true);
 }
 
+function checkOps(string){
+    for(let i = 0; i < string.length; i++){
+        if(string[i] == `+` || 
+        string[i] == '−' || 
+        string[i] == '×' || 
+        string[i] == `÷` ){
+            return(false);
+        }
+    }
+    return(true);
+}
+
+
 let topOutput = ``;
 let result = ``;
 
+let op1 = 0;
+let op2 = 0;
 
 document.getElementById('topoutput').innerText = ` `;
 document.getElementById('bottomoutput').innerText = " ";
@@ -56,14 +71,19 @@ let operators = document.querySelectorAll('.operator');
 
 for (j of operators) {
     j.addEventListener('click', function() {
-      topOutput += ` ${this.innerText} `;
-      document.getElementById('topoutput').innerText = (topOutput); 
+
+    if(checkOps(topOutput) == true){
+      op1 = parseFloat(topOutput);
+      topOutput += `${this.innerText}`;
+      console.log(this.innerText);
+      document.getElementById('topoutput').innerText = (topOutput); }
+    else{
+        op2 = 
+    }
+    
+
   });
   }
-
-
-
-
 
 
 
@@ -98,11 +118,11 @@ let Equa = document.querySelector('#Equal');
 
 
 Equa.addEventListener('click', () => {
-    
+
 })
 
 
-
+checkOps('potatoz+')
 
 
 
