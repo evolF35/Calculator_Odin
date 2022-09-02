@@ -15,6 +15,8 @@ function divide(x,y){
     return(x/y);
 }
 
+
+
 function operate(x,y,ops){
     if(ops == '+'){
         return(add(x,y));}
@@ -206,7 +208,6 @@ Del.addEventListener('click',() => {
         }
         op1String = op1String.slice(0,-1);
     }
-    
         equationString = equationString.slice(0,-1);
         document.getElementById('topoutput').innerText = equationString;
     }
