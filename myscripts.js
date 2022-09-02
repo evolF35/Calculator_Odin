@@ -26,14 +26,10 @@ function operate(x,y,ops){
             return(divide(x,y));}
 }
 
-
 let equationString = "";
 let equationEnd = 0;
 
 let currentOperator = "";
-let operand1 = 0;
-let operand2 = 0;
-
 
 let hasPeriod = false;
 let operatorOn = false;
@@ -61,6 +57,9 @@ for (i of numberButtons) {
 let zero = document.querySelector('#zero');
 
 zero.addEventListener('click', () => {
+    if(op2String.length == 0 && currentOperator == '÷'){
+        return;
+    }
     if(equationString.length != 0){
         if(operatorOn == false){
             op1String += `0`;
@@ -77,70 +76,108 @@ let operators = document.querySelectorAll('.operator');
 
 for (j of operators) {
     j.addEventListener('click', function() {
-        if(equationString.length != 0 && operatorOn != true){
 
-            equationString += `${this.innerText}`;
-            document.getElementById('topoutput').innerText = equationString; 
+    if(equationString.length == 0 ){
+            return; 
+    }     
+    
+    let kool = equationString.toString().split('');
 
-            currentOperator = `${this.innerText}`;
+    if(kool[kool.length - 1] == '+' ||
+    kool[kool.length - 1] == '−' ||
+    kool[kool.length - 1] == '×' ||
+    kool[kool.length - 1] == '÷'
+    )
+    {return;}
 
-            operatorOn = true;
+    if(operatorOn != true){
+
+        equationString += `${this.innerText}`;
+        document.getElementById('topoutput').innerText = equationString; 
+
+        currentOperator = `${this.innerText}`;
+
+        operatorOn = true;
+    }
+    else if (operatorOn == true) {
+        armadillo();
+        equationString = op1String;
+
+        equationString += `${this.innerText}`;
+        document.getElementById('topoutput').innerText = equationString; 
+        currentOperator = `${this.innerText}`;
+        operatorOn = true;
     }
   });
 }
 
+
+function armadillo() {
+    
+    if(op1String.length != 0 && op2String.length != 0){
+        let op1 = parseFloat(op1String);
+        let op2 = parseFloat(op2String);
+        let opR = currentOperator;
+    
+        let end = (operate(op1,op2,opR)).toFixed(2);
+        document.getElementById('bottomoutput').innerText = end; 
+    
+        op1String = end;
+        op2String = "";
+        equationString = end;
+    
+        currentOperator = "";
+        operatorOn = false;
+    }
+
+    return;
+}
+
+
 let Equa = document.querySelector('#Equal');
 
 
-Equa.addEventListener('click', () => {
-    
-    let op1 = parseFloat(op1String);
-    let op2 = parseFloat(op2String);
-    let opR = currentOperator;
+Equa.addEventListener('click',  armadillo);
 
-    let end = operate(op1,op2,opR);
-    document.getElementById('bottomoutput').innerText = end; 
-})
 
+let clear = document.querySelector('#clear');
+
+clear.addEventListener('click',()=>{
+    equationString = '';
+    equationEnd = 0;
+
+    currentOperator = "";
+
+    hasPeriod = false;
+    operatorOn = false;
+
+    op1String = "";
+    op2String = "";
+
+    document.getElementById('topoutput').innerText = equationString;
+    document.getElementById('bottomoutput').innerText = equationEnd;
+});
+
+let decimal = document.querySelector('#Decimal');
+
+decimal.addEventListener('click', () => {
+    if(hasPeriod == false){
+        equationString += '.';
+        document.getElementById('topoutput').innerText = equationString;
+        hasPeriod = true;
+}
+});
 
 
 
 
 /*
-let topOutput = '';
-let result = '';
-
-
-
-
-
-let thereOps = false;
-let currentOps = '';
 
 
 
 
 document.getElementById('topoutput').innerText = ` `;
 document.getElementById('bottomoutput').innerText = " ";
-
-
-let operators = document.querySelectorAll('.operator');
-
-for (j of operators) {
-    j.addEventListener('click', function() {
-
-    if(thereOps == false){
-      topOutput += `${this.innerText}`;
-      document.getElementById('topoutput').innerText = topOutput; 
-      currentOps = `${this.innerText}`;
-      console.log(currentOps);
-      topOutput = '';
-    }
-    else{
-
-    }
-  });
-}
 
 
 let decimal = document.querySelector('#Decimal');
