@@ -98,6 +98,7 @@ for (j of operators) {
         currentOperator = `${this.innerText}`;
 
         operatorOn = true;
+        hasPeriod = false;
     }
     else if (operatorOn == true) {
         armadillo();
@@ -107,6 +108,7 @@ for (j of operators) {
         document.getElementById('topoutput').innerText = equationString; 
         currentOperator = `${this.innerText}`;
         operatorOn = true;
+        hasPeriod = false;
     }
   });
 }
@@ -161,7 +163,15 @@ clear.addEventListener('click',()=>{
 let decimal = document.querySelector('#Decimal');
 
 decimal.addEventListener('click', () => {
+    
     if(hasPeriod == false){
+
+        if(operatorOn == false){
+            op1String += '.';
+        }
+        if(operatorOn == true){
+            op2String += '.';
+        }
         equationString += '.';
         document.getElementById('topoutput').innerText = equationString;
         hasPeriod = true;
